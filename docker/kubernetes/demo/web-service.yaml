@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: demo-web-service
+  namespace: demo-namespace
+spec:
+  selector:
+    app: demo
+  type: LoadBalancer #External service with external IP (ClusterID=Internal service)
+  ports:
+  - protocol: TCP
+    port: 8081
+    targetPort: 8081
+    nodePort: 30000 # 30000-32767
