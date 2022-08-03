@@ -1,0 +1,8 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: demo-config
+  namespace: demo-namespace
+data:
+  database-url: demo-database-service.demo-namespace
+  database-port: 8181
