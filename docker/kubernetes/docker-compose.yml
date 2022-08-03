@@ -1,0 +1,8 @@
+---
+version: '3.2'
+services:
+  kube:
+    build: .
+    container_name: kube
+    ports:
+      - "9080:8080"
