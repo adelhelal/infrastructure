@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: demo-database-service
+  namespace: demo-namespace
+spec:
+  selector:
+    app: demo
+  ports:
+  - protocol: TCP
+    port: 8181
+    targetPort: 27017
