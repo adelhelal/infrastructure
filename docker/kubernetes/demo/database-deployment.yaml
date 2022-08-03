@@ -1,0 +1,41 @@
+# Deployment > ReplicaSet > Pod > Container
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: demo-database-deployment
+  namespace: demo-namespace
+spec:
+  # 1. Copies of each pod
+  replicas: 2
+  # 2. Update strategy for pods
+  strategy:
+    type: Recreate
+  # 3. Pods to select from template
+  selector:
+    matchLabels:
+      app: demo
+  
+  # Pod configuration nested inside deployment spec
+  template:
+    metadata:
+      labels:
+        app: demo
+    spec:
+      containers:
+        - name: database
+          image: mongo
+          ports:
+          - containerPort: 27017
+          env:
+          - name: ENVIRONMENT
+            value: dev
+          - name: MONGO_INITDB_ROOT_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: demo-secret
+                key: database-username
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: demo-secret
+                key: database-password
