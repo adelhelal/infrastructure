@@ -1,0 +1,15 @@
+---
+version: '3.2'
+services:
+  s3:
+    image: andrewgaul/s3proxy:latest
+    container_name: s3
+    ports:
+      - "9000:80"
+    volumes:
+      - data:/data
+    environment:
+      - S3PROXY_AUTHORIZATION=none
+
+volumes:
+  data:
