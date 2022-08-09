@@ -1,4 +1,4 @@
-docker exec -u root -it spark /bin/sh 
+docker exec -u root -it spark /bin/sh
 
 mkdir -p /metorikku/data/json/
 mkdir -p /metorikku/data/schema/
@@ -12,3 +12,5 @@ docker cp ingestion_metric.yaml spark:/metorikku/
 
 # https://github.com/YotpoLtd/metorikku/releases/tag/v0.0.151/
 docker cp metorikku-standalone_2.11.jar spark:/metorikku/
+
+spark-submit --class com.yotpo.metorikku.Metorikku /metorikku/metorikku-standalone_2.11.jar -c /metorikku/ingestion_job.yaml
