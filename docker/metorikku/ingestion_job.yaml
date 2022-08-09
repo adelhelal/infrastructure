@@ -1,0 +1,33 @@
+metrics:
+  - /metorikku/ingestion_metric.yaml            
+inputs:
+  cgm_marx_felix_frost_raw:
+    file:
+      path: /metorikku/data/json/*.json
+      format: json
+      schemaPath: /metorikku/data/schema/schema.json
+      options:
+        multiLine: true
+output:
+  file:
+    dir: /metorikku/data/output/
+
+# If set to true, triggers Explain before saving
+explain: false
+
+# Set Log Level : ALL, DEBUG, ERROR, FATAL, INFO, OFF, TRACE, WARN
+logLevel: INFO
+
+# Set Application Name to have app name prefix in spark instrumentation counters
+appName: cgm_marx_felix_frost
+
+# Shows a Preview of the output
+showPreviewLines: 0
+
+# Prints the query after running it
+showQuery: false
+
+# Caches the step before each preview
+cacheOnPreview: false
+
+cacheCountOnOutput: false
