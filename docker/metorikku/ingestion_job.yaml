@@ -1,7 +1,7 @@
 metrics:
   - /metorikku/ingestion_metric.yaml            
 inputs:
-  cgm_marx_felix_frost_raw:
+  raw_data:
     file:
       path: /metorikku/data/json/*.json
       format: json
@@ -19,7 +19,7 @@ explain: false
 logLevel: INFO
 
 # Set Application Name to have app name prefix in spark instrumentation counters
-appName: cgm_marx_felix_frost
+appName: metorikku_app
 
 # Shows a Preview of the output
 showPreviewLines: 0
