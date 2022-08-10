@@ -2,27 +2,17 @@ steps:
   - dataFrameName: orders
     sql:
       SELECT
-        CAST(eventOriginal.id AS BIGINT) AS `order_id`,
-        eventOriginal.version AS `order_version`,
-        enrichedData.orderSource AS `order_source`,
-        'FILL' AS `fill_type`,
-        fill.id AS `fill_id`,
-        fill.requestId AS `request_id`,
-        fill.price AS `price`,
-        fill.sideRate AS `side_rate`,
-        fill.volume AS `volume`,
-        fill.quoteId AS `quote_id`,
-        fill.tradeId AS `trade_id`,
-        fill.version AS `version`,
-        fill.traderId AS `trader_id`,
+        CAST(order.id AS BIGINT) AS `order_id`,
+        order.version AS `order_version`,
+        order.source AS `order_source`,
+        item.id AS `item_id`,
         CAST(${batch_id} AS BIGINT) AS batch_id,
-        CAST(date_format(current_timestamp(), 'yyyyMMddHHmmss') AS BIGINT) AS `cdh_ingestion_time`,
-        element_at(split(input_file_name(), '/'), -1) AS filename,
+        CAST(date_format(current_timestamp(), 'yyyyMMddHHmmss') AS BIGINT) AS `process_time`,
         CAST(${load_date} as INT) AS load_date
       FROM
         raw_data
       LATERAL VIEW OUTER
-        explode(eventOriginal.fills) AS fill
+        explode(order.itens) AS item
 
 output:
   - dataFrameName: orders
@@ -30,7 +20,7 @@ output:
     format: parquet
     outputOptions:
       saveMode: Append
-      path: validated/orders
+      path: s3_bucket/orders
       partitionBy:
         - batch_id
-        - cdh_ingestion_time
+        - process_time
