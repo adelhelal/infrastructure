@@ -1,5 +1,5 @@
 metrics:
-  - /metorikku/ingestion_metric.yaml            
+  - /metorikku/metrics.yaml            
 inputs:
   raw_data:
     file:
