@@ -6,9 +6,7 @@ steps:
         order.version AS `order_version`,
         order.source AS `order_source`,
         item.id AS `item_id`,
-        CAST(${batch_id} AS BIGINT) AS batch_id,
-        CAST(date_format(current_timestamp(), 'yyyyMMddHHmmss') AS BIGINT) AS `process_time`,
-        CAST(${load_date} as INT) AS load_date
+        CAST(date_format(current_timestamp(), 'yyyyMMddHHmmss') AS BIGINT) AS `process_time`
       FROM
         raw_data
       LATERAL VIEW OUTER
